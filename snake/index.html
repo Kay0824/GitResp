@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>js版贪吃蛇游戏</title>
+	</head>
+	
+	<script type="text/javascript" src="js/User.js"></script>
+	<script type="text/javascript" src="js/Game.js"></script>
+	<script type="text/javascript" src="js/Snake.js"></script>
+	<script type="text/javascript" src="js/Food.js"></script>
+	
+	<style type="text/css">
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		header{
+			width: 100%;
+			height: 100px;
+			line-height: 100px;
+			background-color: #282C35;
+			text-align: center;
+			font-size: 20px;
+			color: azure;
+		}
+		.main{
+			height: 600px;
+			background-color: #AAAAAA;
+			
+		}
+		.main .rank{
+			float: left;
+			width: 300px;
+			height: 500px;
+			margin-left: 100px;
+			margin-top: 50px ;
+			margin-right: 100px;
+			background-color: #878A87;
+		
+		}
+		.main .main-l{
+			float: left;
+			margin-top:10px ;
+		}
+		.main .main-r{
+			width: 300px;
+			height: 500px;
+		
+			float: left;
+			margin-left: 100px;
+			margin-top: 50px;
+			background-color: #878A87;
+			
+		}
+		.main .main-r .set{
+			height: 150px;
+			text-align: center;
+		}
+		.main .main-r .set p{
+			height: 50px;
+			line-height: 50px;
+		}
+		.main .main-r .set .audio{
+			width: 200px;
+			height: 150px;
+			margin-left: 40px;
+		
+		}
+		.main .main-r .introduction{
+			height: 200px;
+		
+		}
+		.main .main-r .introduction #intro{
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+			
+		}
+		.main .main-r .control p{
+			height: 50px;
+			line-height: 50px;
+			text-align: center;
+		}
+		table{
+			border-collapse: collapse;
+			border: 2px solid black;
+		}
+		td{
+			width: 25px;
+			height: 24px;
+			border: 1px solid black;
+			border-radius: 8px;
+						
+		}
+		footer{
+			height: 50px;
+			background-color: #282C35;
+			color: azure;
+			line-height: 50px;
+			text-align: center;
+		}
+		
+	</style>
+	<body>
+		<header>
+			<h2>js版贪吃蛇游戏</h2>
+		</header>
+		<div class="main">
+			<div class="rank">
+				
+				<div class="rank-1">
+					<p style="color: #F0FFFF; font-size: 20px;">当前玩家</p>
+					昵称：<span id="name"></span>得分:<span id="scores"></span>
+				</div>
+				
+				<div class="rank-2">
+					<button id="historyScore_button" onclick="displayHistory()">历史记录</button>
+					<ul id="historyScore"></ul>
+				</div>
+				
+				<div class="rank-3">
+					<button id="ranking_button" onclick="displayRanking()"> 排行榜</button>
+					<ul id="ranking"></ul>
+				</div>
+				
+				<div class="rank-4">
+					<button id="clearStorage">清除记录</button>
+				</div>
+			</div>
+			
+			<div class="main-l">
+				<p id="f"><strong>帧编号：0</strong></p>
+				<p id="score"> 分数：0</p>
+				<div id="app"></div>
+			</div>
+				
+			<div class="main-r">
+				<div class="set">
+					<p style="color: #F0FFFF; font-size: 20px;">音乐设置</p>
+					<div class="audio">
+						<audio src="./7895.mp3" controls loop="loop" style="width: 210px;"></audio>
+					</div>
+				</div>
+			
+				<div class="introduction">
+					<p id="intro" style="color: #F0FFFF; font-size: 20px;">游戏说明</p>
+					<p style="text-indent: 20px;">玩家通过上下左右控制蛇的行进方向，吃到豆子游戏分数加一。
+					当蛇头触碰到表格边缘或蛇头触碰到自己身体，则游戏失败。</p>
+				</div>
+				
+				<div class="control">
+					<p style="color: #F0FFFF; font-size: 20px;">游戏控制</p>
+					<button id = "b1" style="width: 70px;height: 35px;margin-top: 30px; margin-left: 50px;border-radius: 10px;border:none;color:#282C35;">
+						<strong>游戏开始</strong>
+					</button>
+					<button id = "b2" style="width: 70px;height: 35px;margin-left: 70px;border-radius: 10px;border:none;color:#282C35;">
+						<strong>再来一局</strong>
+					</button>
+					
+				</div>
+				
+			</div>
+		</div>
+		<footer>
+			<em>作者：稀饭</em>
+		</footer>
+	</body>
+</html>
+<script>
+	var game = new Game();
+</script>
