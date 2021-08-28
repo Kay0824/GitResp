@@ -10,131 +10,41 @@
 	<script type="text/javascript" src="js/Snake.js"></script>
 	<script type="text/javascript" src="js/Food.js"></script>
 	
-	<style type="text/css">
-		*{
-			margin: 0;
-			padding: 0;
-		}
-		header{
-			width: 100%;
-			height: 100px;
-			line-height: 100px;
-			background-color: #282C35;
-			text-align: center;
-			font-size: 20px;
-			color: azure;
-		}
-		.main{
-			height: 600px;
-			background-color: #AAAAAA;
-			
-		}
-		.main .rank{
-			float: left;
-			width: 300px;
-			height: 500px;
-			margin-left: 100px;
-			margin-top: 50px ;
-			margin-right: 100px;
-			background-color: #878A87;
-		
-		}
-		.main .main-l{
-			float: left;
-			margin-top:10px ;
-		}
-		.main .main-r{
-			width: 300px;
-			height: 500px;
-		
-			float: left;
-			margin-left: 100px;
-			margin-top: 50px;
-			background-color: #878A87;
-			
-		}
-		.main .main-r .set{
-			height: 150px;
-			text-align: center;
-		}
-		.main .main-r .set p{
-			height: 50px;
-			line-height: 50px;
-		}
-		.main .main-r .set .audio{
-			width: 200px;
-			height: 150px;
-			margin-left: 40px;
-		
-		}
-		.main .main-r .introduction{
-			height: 200px;
-		
-		}
-		.main .main-r .introduction #intro{
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-			
-		}
-		.main .main-r .control p{
-			height: 50px;
-			line-height: 50px;
-			text-align: center;
-		}
-		table{
-			border-collapse: collapse;
-			border: 2px solid black;
-		}
-		td{
-			width: 25px;
-			height: 24px;
-			border: 1px solid black;
-			border-radius: 8px;
-						
-		}
-		footer{
-			height: 50px;
-			background-color: #282C35;
-			color: azure;
-			line-height: 50px;
-			text-align: center;
-		}
-		
-	</style>
+	<link rel="stylesheet" href="./css/index.css" type="text/css">
 	<body>
 		<header>
 			<h2>js版贪吃蛇游戏</h2>
 		</header>
 		<div class="main">
+<!-- 游戏左半部分 -->
 			<div class="rank">
 				
 				<div class="rank-1">
-					<p style="color: #F0FFFF; font-size: 20px;">当前玩家</p>
-					昵称：<span id="name"></span>得分:<span id="scores"></span>
+					<p style="color: #F0FFFF; font-size: 18px; margin-bottom: 5px; ">当前玩家</p>
+					昵称：&nbsp;&nbsp;<span id="name"></span>&nbsp;&nbsp;得分：&nbsp;&nbsp;<span id="score"></span>
 				</div>
 				
-				<div class="rank-2">
-					<button id="historyScore_button" onclick="displayHistory()">历史记录</button>
-					<ul id="historyScore"></ul>
+				<div class="rank-2" >
+					<div style="color: #F0FFFF; font-size: 18px; margin-bottom: 5px; margin-left: 5px;">历史记录</div>
+					<ul style="overflow:auto; padding: 5px;" class = "rank_ul" id="historyScore"></ul>
 				</div>
 				
 				<div class="rank-3">
-					<button id="ranking_button" onclick="displayRanking()"> 排行榜</button>
-					<ul id="ranking"></ul>
+					<div style="color: #F0FFFF; font-size: 18px; margin-bottom: 5px; margin-left: 5px; "> 排行榜</div>
+					<ul class = "rank_ul" id="ranking"></ul>
 				</div>
 				
 				<div class="rank-4">
-					<button id="clearStorage">清除记录</button>
+					<button id="clearStorage" onclick="clearStorage()">清除记录</button>
 				</div>
 			</div>
-			
+<!-- 游戏中间部分   -->
 			<div class="main-l">
 				<p id="f"><strong>帧编号：0</strong></p>
-				<p id="score"> 分数：0</p>
+				<p id="scores"> 分数：0</p>
 				<div id="app"></div>
 			</div>
-				
+<!-- 游戏右半部分		-->				
 			<div class="main-r">
 				<div class="set">
 					<p style="color: #F0FFFF; font-size: 20px;">音乐设置</p>
@@ -145,8 +55,8 @@
 			
 				<div class="introduction">
 					<p id="intro" style="color: #F0FFFF; font-size: 20px;">游戏说明</p>
-					<p style="text-indent: 20px;">玩家通过上下左右控制蛇的行进方向，吃到豆子游戏分数加一。
-					当蛇头触碰到表格边缘或蛇头触碰到自己身体，则游戏失败。</p>
+					<p style="text-indent: 20px; margin: 5px;">玩家通过上下左右控制蛇的行进方向，吃到豆子游戏分数加一。
+					当蛇头触碰到表格边缘或蛇头触碰到自己身体，则游戏失败。蛇移动的速度会随着身体的增长而不断增加。</p>
 				</div>
 				
 				<div class="control">
@@ -163,10 +73,157 @@
 			</div>
 		</div>
 		<footer>
-			<em>作者：稀饭</em>
+			<em>作者：稀饭 &nbsp;&nbsp; &nbsp;&nbsp; &nbsp;&nbsp;源码地址：<a style="font-size: 15px;" href="https://github.com/kay0824">https://github.com/kay0824</a></em>
 		</footer>
 	</body>
 </html>
 <script>
-	var game = new Game();
+
+	var flag=false;//false表示当前用户是新用户,true为老用户
+	var currentName;//当前用户
+	var game = new Game(this);
+	
+	
+	//当html页面加载完之后执行用户初始化
+	window.onload = function(){
+		initMes();
+		displayRanking();
+		displayHistory();		
+		
+	}
+     
+	//清除历史记录即本地缓存，页面刷新后历史记录和排行榜的内容会归0
+	function clearStorage() {
+		
+		localStorage.clear();
+		alert("历史记录已删除！");		
+		
+	}
+	
+	//显示排行榜
+    function displayRanking() {
+		//当游戏结束时重新渲染这部分页面
+		document.getElementById('ranking').innerHTML = '';
+
+        var historyMessage=JSON.parse(localStorage.getItem("messageStorage"));//用户历史信息
+		var ranking=new Array();
+		//找出用户历史最高分
+        for(var i=0;i<historyMessage.length;i++) {
+            var player=historyMessage[i];
+			
+			var name_highScore={};//存有用户最高分的用户集合
+			
+            var currentScore=player.score;//当前玩家历史得分数组
+            var currentHighScore=currentScore[0];//当前玩家最高分
+            for(var j=0;j<currentScore.length;j++){
+                if(currentHighScore<currentScore[j])
+                {
+                    currentHighScore=currentScore[j];
+                }
+            }
+            name_highScore.name=player.name;
+            name_highScore.score=currentHighScore;
+            ranking.push(name_highScore); //将玩家以及对应的最高分组成的对象放入数组中
+        }
+
+        //对数组按照分数排序
+        var k, m, tmp;
+        for (k = 1; k < ranking.length; k++)
+        {
+            tmp = ranking[k];
+            m = k - 1;
+            while (m>=0 && tmp.score < ranking[m].score)
+            {
+                ranking[m + 1] = ranking[m];
+                m--;
+            }
+            ranking[m + 1] = tmp;
+        }
+		// console.log(ranking);
+
+		
+		//创建结点
+		var rank = ranking.length <= 5 ? ranking : ranking.splice((ranking.length - 5),ranking.length);
+        for(var f=rank.length-1;f>=0;f--){
+            var ul=document.getElementById('ranking');
+            var li=document.createElement('li');
+            li.innerHTML="玩家："+rank[f].name+"------最高分："+rank[f].score;
+            ul.appendChild(li);
+        }
+	}
+	
+	//显示历史记录
+    function displayHistory() {
+		document.getElementById('historyScore').innerHTML = '';
+        var historyMessage=JSON.parse(localStorage.getItem("messageStorage"));//用户历史信息
+
+		//console.log(historyMessage.length);
+        var ul=document.getElementById('historyScore');
+        for(var i=0;i<historyMessage.length;i++) {
+           // console.log(historyMessage[i].name);
+            if(historyMessage[i].name === currentName){
+                var score=historyMessage[i].score;
+                for(var j=1; j<score.length; j++){
+                    var li=document.createElement('li');
+                    li.innerHTML='第'+ j +'次：'+ score[j];
+                    ul.appendChild(li);
+                }
+
+            }
+        }
+    }
+    //游戏开始，初始化用户信息
+    function initMes(){
+        var message_child={};
+        var historyMessage=JSON.parse(localStorage.getItem("messageStorage"));//用户历史信息
+//        console.log("初始化--》"+historyMessage);
+        currentName =prompt('请输入你的名字：','');
+        if(currentName!=null && currentName!=''){
+            document.getElementById('name').innerHTML=currentName;
+        }
+        if(historyMessage != null){
+            for(var i=0;i<historyMessage.length;i++){
+                if(historyMessage[i].name === currentName){
+					flag=true; //已经有该用户
+
+                }
+            }
+		}
+		//新用户
+        if(!flag){
+            console.log("新用户");
+            message_child.name = currentName;
+			message_child.score = [0];
+
+			//不仅是新用户，而且该游戏还没有任何历史记录
+            if(historyMessage == null){
+                historyMessage = new Array();
+//                console.log("新用户且该游戏还没有任何历史记录");
+            }
+            historyMessage.push(message_child);//将新用户的信息对象放入数组中
+            localStorage.setItem("messageStorage",JSON.stringify(historyMessage));//存入本地
+
+
+        }
+    }
+    //游戏结束，更新用户信息
+    function updataMes() {
+        var historyMessage=JSON.parse(localStorage.getItem("messageStorage"));//用户历史信息
+  
+ 		//console.log(historyMessage.length);
+		//游戏结束时给当前用户加入新的分数
+        for(var i=0;i<historyMessage.length;i++){
+            if(historyMessage[i].name == currentName){
+                historyMessage[i].score.push(game.score);
+                localStorage.setItem("messageStorage",JSON.stringify(historyMessage));//存入本地
+				// console.log(JSON.parse(localStorage.getItem("messageStorage"))[i].score);
+				//return;
+				//刷新排行榜
+				displayHistory();
+				displayRanking();
+            }
+		}
+	
+    }
+
 </script>

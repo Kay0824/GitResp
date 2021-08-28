@@ -1,6 +1,8 @@
 
-function Game(){
+function Game(parThis){
 	
+	//主页面的this
+	this.parThis = parThis;
  	this.row = 20;
  	this.col = 20;
 	
@@ -80,6 +82,7 @@ Game.prototype.startAgain = function(){
 	var againGame = document.getElementById("b2");
 	againGame.onclick = function(){
 		self.clear();
+		self.score = 0;
 		self.snake = new Snake();
 		self.start();
 				
@@ -122,7 +125,8 @@ Game.prototype.start = function(){
 	this.timer = setInterval(function(){	
 		game.f++;
 		document.getElementById("f").innerHTML = "帧编号：" + game.f;
-		document.getElementById("score").innerHTML = "分数: " + game.score;
+		document.getElementById("scores").innerHTML = "分数: " + game.score;
+		document.getElementById("score").innerHTML = game.score;
 		
 		//清屏
 		game.clear();

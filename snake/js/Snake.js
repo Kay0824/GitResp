@@ -46,18 +46,19 @@ Snake.prototype.update = function(){
 	
 	//死亡判断1，超出表格边缘
 	if(this.body[0].col > game.col - 1||this.body[0].row > game.row -1||this.body[0].col < 0||this.body[0].row < 0){
-		
 		this.setAlert("您当前得分为：" + game.score);
 		this.body.shift();
-		clearInterval(game.timer);	
+		clearInterval(game.timer);
+		game.parThis.updataMes();	
 	}
 	
 	//死亡判断2，自己撞到自己
 	for(var i=1; i<this.body.length; i++){
 		if(this.body[0].row == this.body[i].row && this.body[0].col == this.body[i].col){
-			//alert("游戏结束！您当前得分为：" + game.score);
+			this.setAlert("您当前得分为：" + game.score);
 			this.body.shift();
 			clearInterval(game.timer);
+			game.parThis.updataMes();	
 		}
 	}
 	//蛇吃食物

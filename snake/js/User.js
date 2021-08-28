@@ -10,10 +10,10 @@ User.prototype.initMes = function(){
 	var historyMessage = JSON.parse(localStorage.getItem("messageStorage"));//用户历史信息
 //        console.log("初始化--》"+historyMessage);
 	currentName = prompt('请输入你的名字：','');
-	if(currentName! = null && currentName!=''){
+	if(currentName!= null && currentName!=''){
 		document.getElementById('name').innerHTML=currentName;
 	}
-	if(historyMessage ! = null){
+	if(historyMessage != null){
 		for(var i=0;i<historyMessage.length;i++){
 			if(historyMessage[i].name == currentName){
 				flag=true; //已经有该用户
