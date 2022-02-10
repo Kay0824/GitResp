@@ -27,7 +27,7 @@ function Game(parThis){
 }
 Game.prototype.init = function(){
 	this.dom = document.createElement("table");
-	var tr,dr;
+	var tr,td;
 	//遍历行和列
 	for(var i = 0; i < this.row; i++){
 		//遍历行，创建节点
@@ -45,7 +45,7 @@ Game.prototype.init = function(){
 	//表格上树
 	document.getElementById("app").appendChild(this.dom);
 	
-	//this.user.initMes();
+	
 };
  
 //设置颜色的方法

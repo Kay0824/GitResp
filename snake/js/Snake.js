@@ -10,7 +10,7 @@ function Snake(){
 	//即将改变的方向，目的就是为了防止原地掉头的情况
 	this.willDirection = "R";
 	
-	//this.setAlert();
+
 	
 	
 }
@@ -55,7 +55,7 @@ Snake.prototype.update = function(){
 	//死亡判断2，自己撞到自己
 	for(var i=1; i<this.body.length; i++){
 		if(this.body[0].row == this.body[i].row && this.body[0].col == this.body[i].col){
-			this.setAlert("您当前得分为：" + game.score);
+			this.setAlert("您当前得分为：" + game.score);zx
 			this.body.shift();
 			clearInterval(game.timer);
 			game.parThis.updataMes();	

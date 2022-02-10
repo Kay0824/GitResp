@@ -17,7 +17,6 @@ import list_12 from '@a/images/hotCatList/list-12.jpg'
 
 @withRouter
 class HotCate extends Component {
-  
 
     state = {
         hotCateList:[

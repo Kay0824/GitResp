@@ -14,21 +14,21 @@ const MenuList = (props) => {
         <MenuWrap>
             <aside>
                 <ul>
-                    {
-                   cate && Object.keys(cate)
-                        .map(value => {
-                            return(
-                                <li
-                                    className={curCate === value ? 'active' : ''}
-                                    key = {value}
-                                    onClick = {handleAsideClick(value)}
-                                >
-                                    <span>{value}</span>
-                                </li>
-                            )
-                        })
-                    }         
-                </ul>r
+                {
+                cate && Object.keys(cate)
+                    .map(value => {
+                        return(
+                            <li
+                                className={curCate === value ? 'active' : ''}
+                                key = {value}
+                                onClick = {handleAsideClick(value)}
+                            >
+                                <span>{value}</span>
+                            </li>
+                        )
+                    })
+                }         
+                </ul>
             </aside> 
             <section>
                 <ul>

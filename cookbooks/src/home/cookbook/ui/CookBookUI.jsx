@@ -13,15 +13,7 @@ const CookBookUI = (props) =>{
     //const swiper = memoize((list) => {(list || '').slice(0,5)})
     const swiper = memoize(list => list.slice(0,5))
     const hotCate = memoize(list => list.slice(0,10))
-
-   // const list1 = (props.list || '').slice(0,5)
-   // const list2 = (props.list || '').slice(10,20)
     
-    
-    // const arr = (props.list || '').slice(0,5)
-    // console.log(swiper((props.list || '')))
-    
-
     return (
         <Container>
             <header>美食大全</header>
@@ -36,9 +28,8 @@ const CookBookUI = (props) =>{
         </Container>
     )
 }
-//
 
-//函数式组件绑定类型检查
+
 CookBookUI.propTypes = {
     list : propTypes.array
 }
